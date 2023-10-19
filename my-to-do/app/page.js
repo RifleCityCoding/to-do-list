@@ -1,17 +1,19 @@
 "use client";
 import Image from "next/image";
-import styles from "./page.module.css";
 import React from "react";
 import MainCard from "./Components/MainCard";
+import TaskInput from "./Components/TaskInput"
+import 'bootstrap/dist/css/bootstrap.css'
+import styles from "./styles.css"
 
 export default function Home() {
   return (
-    <main className={styles.main}>
+    <div className="container text-center">
         <div className="row">
-          <div className="col-4-md">
-              
+          <div className="col-8-md">
+              <MainCard />
           </div>
         </div>
-    </main>
+    </div>
   );
 }
