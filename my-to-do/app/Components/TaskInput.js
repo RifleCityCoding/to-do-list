@@ -1,24 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 export default function TaskInput() {
   const [tasks, setTasks] = useState([]);
   const [completedTasks, setCompletedTasks] = useState([]);
-  const [taskText, setTaskText] = useState('');
+  const [taskText, setTaskText] = useState("");
 
   useEffect(() => {
-    const storedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    const storedCompletedTasks = JSON.parse(localStorage.getItem('completedTasks')) || [];
+    const storedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    const storedCompletedTasks =
+      JSON.parse(localStorage.getItem("completedTasks")) || [];
     setTasks(storedTasks);
     setCompletedTasks(storedCompletedTasks);
   }, []);
 
-  
   useEffect(() => {
-    localStorage.setItem('tasks', JSON.stringify(tasks));
+    localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
 
   useEffect(() => {
-    localStorage.setItem('completedTasks', JSON.stringify(completedTasks));
+    localStorage.setItem("completedTasks", JSON.stringify(completedTasks));
   }, [completedTasks]);
 
   const handleTaskInputChange = (e) => {
@@ -26,9 +26,9 @@ export default function TaskInput() {
   };
 
   const handleAddTask = () => {
-    if (taskText.trim() !== '') {
+    if (taskText.trim() !== "") {
       setTasks([...tasks, taskText]);
-      setTaskText('');
+      setTaskText("");
     }
   };
 
@@ -55,7 +55,7 @@ export default function TaskInput() {
         value={taskText}
         onChange={handleTaskInputChange}
       />
-      <button onClick={handleAddTask}>Add Task</button>
+      <button onClick={handleAddTask}>Enter your task!</button>
 
       <div>
         <h2>Current Task</h2>
@@ -63,7 +63,10 @@ export default function TaskInput() {
           {tasks.map((task, index) => (
             <li key={index}>
               <label>
-                <input type="radio" onChange={() => handleTaskCompletion(index)} />
+                <input
+                  type="radio"
+                  onChange={() => handleTaskCompletion(index)}
+                />
                 {task}
               </label>
             </li>
@@ -77,7 +80,10 @@ export default function TaskInput() {
           {completedTasks.map((task, index) => (
             <li key={index}>
               <label>
-                <input type="radio" onChange={() => handleReturnToPending(index)} />
+                <input
+                  type="radio"
+                  onChange={() => handleReturnToPending(index)}
+                />
                 {task}
               </label>
             </li>
