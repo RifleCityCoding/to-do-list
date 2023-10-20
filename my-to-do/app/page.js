@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <div className="container text-center">
         <div className="row">
-          <div className="col-8-md">
+          <div className="col-4-md">
               <MainCard />
           </div>
         </div>

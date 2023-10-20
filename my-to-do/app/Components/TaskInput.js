@@ -6,14 +6,13 @@ export default function TaskInput() {
   const [taskText, setTaskText] = useState('');
 
   useEffect(() => {
-    // Retrieve tasks and completed tasks from local storage when the component mounts
     const storedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
     const storedCompletedTasks = JSON.parse(localStorage.getItem('completedTasks')) || [];
     setTasks(storedTasks);
     setCompletedTasks(storedCompletedTasks);
   }, []);
 
-  // Update local storage whenever the tasks or completedTasks state changes
+  
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }, [tasks]);
@@ -34,10 +33,17 @@ export default function TaskInput() {
   };
 
   const handleTaskCompletion = (taskIndex) => {
-    const completedTask = tasks[taskIndex];
-    setCompletedTasks([...completedTasks, completedTask]);
+    const taskToComplete = tasks[taskIndex];
+    setCompletedTasks([...completedTasks, taskToComplete]);
     tasks.splice(taskIndex, 1);
     setTasks([...tasks]);
+  };
+
+  const handleReturnToPending = (taskIndex) => {
+    const taskToReturn = completedTasks[taskIndex];
+    setTasks([...tasks, taskToReturn]);
+    completedTasks.splice(taskIndex, 1);
+    setCompletedTasks([...completedTasks]);
   };
 
   return (
@@ -70,9 +76,10 @@ export default function TaskInput() {
         <ul>
           {completedTasks.map((task, index) => (
             <li key={index}>
-                <label>
-                    <input type='radio' onChange={() => handleAddTask(index)} />{task}
-                </label>
+              <label>
+                <input type="radio" onChange={() => handleReturnToPending(index)} />
+                {task}
+              </label>
             </li>
           ))}
         </ul>
